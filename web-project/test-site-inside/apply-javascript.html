@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Apply JavaScript example</title>
+    <!-- htmlの中にjavascriptのコードを書く場合scriptタグを使用 -->
+    <script>
+        // 特定のイベント(今回はHTMLがすべて読み終わる事)が発生してから実行される。
+        document.addEventListener("DOMContentLoaded", () => {
+        function createParagraph() {
+          const para = document.createElement("p");
+          para.textContent = "ボタンが押されました!";
+          document.body.appendChild(para);
+        }
+        // ページ上のすべてのボタンを選択
+        const buttons = document.querySelectorAll("button");
+        for (const button of buttons) {
+          button.addEventListener("click", createParagraph);
+        }
+      });
+    </script>      
+</head>
+  <body>
+    <button>Click me</button>
+    <button>Click me</button>
+    <button>Click me</button>
+  </body>
+</html>
