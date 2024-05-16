@@ -85,6 +85,18 @@
           // focus()を加えて、入力項目にフォーカスするようにする。
           guessField.focus();
         }
+        // 特定のイベント(クリック)が起きたことを検知し、関数を呼び出す。
+        guessSubmit.addEventListener("click", checkGuess);
+
+        function setGameOver() {
+          guessField.disabled = true;
+          guessSubmit.disabled = true;
+          resetButton = document.createElement("button");
+          resetButton.textContent = "Start new game";
+          document.body.append(resetButton);
+          resetButton.addEventListener("click", resetGame);
+        }
+
       </script>    
 
   </body>
