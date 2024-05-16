@@ -53,7 +53,10 @@
        
         let guessCount = 1;
         let resetButton;
-       
+        // ページにアクセスした際に入力フォームにカーソルを合わせるようにする
+        guessField.focus();
+
+        // 予想を答え合わせする関数
         function checkGuess() {
           const userGuess = Number(guessField.value);
           if (guessCount === 1) {
@@ -87,7 +90,7 @@
         }
         // 特定のイベント(クリック)が起きたことを検知し、関数を呼び出す。
         guessSubmit.addEventListener("click", checkGuess);
-
+        // ゲームオーバーしたときに呼び出される関数
         function setGameOver() {
           guessField.disabled = true;
           guessSubmit.disabled = true;
@@ -96,11 +99,12 @@
           document.body.append(resetButton);
           resetButton.addEventListener("click", resetGame);
         }
-
+        // ゲームをリスタートするときに呼び出される関数
         function resetGame() {
           guessCount = 1;
         
           const resetParas = document.querySelectorAll(".resultParas p");
+          // resetParas内のオブジェクトすべてにfor文を使用
           for (const resetPara of resetParas) {
             resetPara.textContent = "";
           }
@@ -116,9 +120,6 @@
         
           randomNumber = Math.floor(Math.random() * 100) + 1;
         }         
-
-
-
 
       </script>    
 
