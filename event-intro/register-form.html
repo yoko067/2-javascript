@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <div>
+          <label for="fname">姓: </label>
+          <input id="fname" type="text" />
+        </div>
+        <div>
+          <label for="lname">名: </label>
+          <input id="lname" type="text" />
+        </div>
+        <div>
+          <input id="submit" type="submit" />
+        </div>
+      </form>
+      <p></p>
+      <!-- バブリング -->
+      <body>
+        <div id="container">
+          <button>クリックしてください</button>
+        </div>
+        <pre id="output"></pre>
+      </body>
+
+      <script>
+        const form = document.querySelector("form");
+        const fname = document.getElementById("fname");
+        const lname = document.getElementById("lname");
+        const para = document.querySelector("p");
+        // submitはフォームを送信すると発生し、テキストフィールドが空かどうかをテストする。        
+        form.addEventListener("submit", (e) => { 
+          if (fname.value === "" || lname.value === "") {
+            e.preventDefault(); // フォームの送信を停止し、エラーの表示を行う
+            para.textContent = "You need to fill in both names!";
+          }
+        });
+        // イベントのバブリング
+        const output = document.querySelector("#output");
+        function handleClick(e) {
+          output.textContent += `${e.currentTarget.tagName} 要素をクリックしました\n`;
+        }
+        // id=containerの要素を取得
+        const container = document.querySelector("#container");
+        // buttonタグの要素を取得
+        const button = document.querySelector("button");
+        // bodyタグ、containter、buttonタグの三つにイベントハンドラーを追加
+        document.body.addEventListener("click", handleClick);
+        container.addEventListener("click", handleClick);
+        button.addEventListener("click", handleClick);
+            
+      </script>
+</body>
+</html>
