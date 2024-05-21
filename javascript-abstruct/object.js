@@ -154,7 +154,7 @@ function parentFunc() {
     const a = 1;
   
     function nestedFunc() {
-      const b = 4; // parentFunc はこれを使用できない
+      const b = 4; // parentFuncからは使用できない
       return a + b;
     }
     return nestedFunc(); // 5
