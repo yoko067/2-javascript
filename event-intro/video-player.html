@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button>動画を表示</button>
+
+    <div class="hidden">
+      <video>
+        <source
+          src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm"
+          type="video/webm" />
+        <p>
+          お使いのブラウザーは HTML 動画に対応していません。代わりに<a
+            href="rabbit320.mp4"
+            >動画へのリンク</a
+          >をご利用ください。
+        </p>
+      </video>
+    </div>
+    <script>
+      const btn = document.querySelector("button");
+      const box = document.querySelector("div");
+      const video = document.querySelector("video");
+      // <bottun>にclickイベントリスナー(<div>を表示)を追加
+      btn.addEventListener("click", () => box.classList.remove("hidden"));
+      // <>にイベントリスナー(動画の再生)を追加
+      video.addEventListener("click", (event) => {
+      // ハンドラー内で呼び出されるとイベントが他の要素にバブリングするのを防ぐ
+      event.stopPropagation();
+      video.play();
+      });
+     // <bottun>にイベントリスナー(動画の非表示)を追加
+      box.addEventListener("click", () => box.classList.add("hidden"));
+        
+    </script>
+</body>
+</html>

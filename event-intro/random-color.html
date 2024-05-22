@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    button {
+      margin: 10px
+    };
+  </style>
+</head>
+<body>
+  <button>色を変更</button>
+  <button id="button2">色を変更</button>
+  <button id="button3">色を変更</button>
+  <input id="textBox" type="text" />
+  <div id="output"></div>
+
+  <script>
+    /* イベント */ 
+    // ボタンのセレクタを取得
+    const btn = document.querySelector("button");
+    // ランダムに色を決定する関数を用意
+    function random(number) {
+      return Math.floor(Math.random() * (number + 1));
+    }
+    // ボタンのクリックイベントにイベントハンドラー追加する。
+    
+    btn.addEventListener("mouseout", () => {
+      const rndCol = `rgb(${random(255)} ${random(255)} ${random(255)})`;
+      document.body.style.backgroundColor = rndCol;
+    });
+
+    // 以下のようにハンドラー関数を別の名前付き関数にしても良い
+    function changeBackground() {
+      const rndCol = `rgb(${random(255)} ${random(255)} ${random(255)})`;
+      document.body.style.backgroundColor = rndCol;
+    }
+    // イベントリスナーの追加
+    btn.addEventListener("click", changeBackground);
+    // イベントリスナーの除去
+    btn.removeEventListener("click", changeBackground);
+    
+    const controller = new AbortController();
+    btn.addEventListener("click",
+      () => {
+        const rndCol = `rgb(${random(255)} ${random(255)} ${random(255)})`;
+        document.body.style.backgroundColor = rndCol;
+      },
+      { signal: controller.signal } // このハンドラーにAbortSignalを渡す
+    );
+    // 上のコードで作成したイベントハンドラーを除去
+    controller.abort(); // このコントローラーに関連付けられたすべてのイベントを除去
+    
+    // 単一イベントに複数の処理を追加できる
+    /*
+    myElement.addEventListener("click", functionA);
+    myElement.addEventListener("click", functionB);
+    */
+
+    const btn2 = document.querySelector("#button2");
+
+    function random(number) {
+      return Math.floor(Math.random() * (number + 1));
+    }
+    
+    btn2.onclick = () => { // onclickを使う事でもイベントハンドラーを追加できる
+      const rndCol = `rgb(${random(255)} ${random(255)} ${random(255)})`;
+      document.body.style.backgroundColor = rndCol;
+    };
+
+    
+    // 同様に名前付き関数を設定することもできる
+    /*
+    const btn2 = document.querySelector("#button2");
+    function random(number) {
+      return Math.floor(Math.random() * (number + 1));
+    }
+    
+    function bgChange() {
+      const rndCol = `rgb(${random(255)} ${random(255)} ${random(255)})`;
+      document.body.style.backgroundColor = rndCol;
+    }
+    
+    btn2.onclick = bgChange;
+    */
+
+    // 単一のイベントに複数のイベントハンドラーの追加はできず、上書きしてしまう。
+    /*
+    element.onclick = function1;
+    element.onclick = function2;
+    */
+
+    // ページ上のすべてのボタンに対してイベントハンドラーを追加する事が出来る。
+    /*
+    const buttons = document.querySelectorAll("button");
+    for (const button of buttons) {
+      button.addEventListener("click", bgChange);
+    }
+    */
+    // イベントオブジェクト
+    const btn3 = document.querySelector("#button3");
+    function random(number) {
+      return Math.floor(Math.random() * (number + 1));
+    }
+    
+    function bgChange(e) {  // eはイベントオブジェクトと呼ばれる。
+      const rndCol = `rgb(${random(255)} ${random(255)} ${random(255)})`;
+      e.target.style.backgroundColor = rndCol; // target プロパティは、常にイベントが生じた要素への参照になっており、ボタン自体の色が変わる
+      console.log(e);
+    }
+    btn3.addEventListener("click", bgChange);
+
+    // どのキーが押されたかを出力する
+    const textBox = document.querySelector("#textBox");
+    const output = document.querySelector("#output");
+    textBox.addEventListener("keydown", (event) => {
+      output.textContent = `"${event.key}" が押されました。`;
+    });
+    
+    
+
+  </script>
+</body>
+</html>
